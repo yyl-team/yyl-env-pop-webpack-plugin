@@ -1,6 +1,8 @@
-declare class WebpackPlugin {
-  constructor(op: WebpackPluginOptions)
+declare class YylEnvPopWebpackPlugin {
+  constructor(op: YylEnvPopWebpackPluginOptions)
 }
-interface WebpackPluginOptions {
+interface YylEnvPopWebpackPluginOptions {
+  enable?: boolean
+  text?: string
 }
-export = WebpackPlugin 
+export = YylEnvPopWebpackPlugin 

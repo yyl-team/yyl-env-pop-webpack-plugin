@@ -37,7 +37,10 @@ const config = {
 // - setting
 
 // + plugin options
-const iPluginOption = {}
+const iPluginOption = {
+  enable: true,
+  text: 'hello world'
+}
 // - plugin options
 
 const wConfig = {
