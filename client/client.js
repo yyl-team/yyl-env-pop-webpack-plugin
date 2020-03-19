@@ -7,6 +7,7 @@
       tipsEl = document.createElement('div')
       tipsEl.style.cssText = [
         'position: fixed',
+        'z-index: 10000',
         'bottom: 10px',
         'right: 10px',
         'color: #fff',
