@@ -94,7 +94,10 @@
     "webpack": "^4.41.1",
     "yyl-fs": "^0.3.3",
     "yyl-os": "^0.10.2",
-    "yyl-util": "^2.3.7"
+    "yyl-util": "^2.3.8"
+  },
+  "peerDependencies": {
+    "webpack": ">=4.0.0"
   },
   "dependencies": {
     "chalk": "^3.0.0",

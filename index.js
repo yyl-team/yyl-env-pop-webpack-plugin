@@ -1,9 +1,7 @@
-const { getHooks } = require('./lib/hooks')
-const PLUGIN_NAME = 'yylEnvPop'
 const path = require('path')
-const LANG = require('./lang/index')
 const fs = require('fs')
-const chalk = require('chalk')
+const { type } = require('yyl-util')
+const webpack = require('webpack')
 
 class YylEnvPopWebpackPlugin {
   constructor(op) {
@@ -14,65 +12,38 @@ class YylEnvPopWebpackPlugin {
       duration: 3000
     }, op)
   }
-  static getName() {
-    return PLUGIN_NAME
-  }
-  static getHooks(compilation) {
-    return getHooks(compilation)
-  }
 
-  appendScript(source) {
-    const { env, cnt } = this
-    const r = `${source.toString()};\r\nwindow.__YYL_ENV_POP_OPTION=${JSON.stringify(env)};${cnt}`
-    return Buffer.from(r)
-  }
   apply(compiler) {
     const { env } = this
-    // const { output, context } = compiler.options
-    compiler.hooks.emit.tap(
-      PLUGIN_NAME,
-      (compilation) => {
-        const logger = compilation.getLogger(PLUGIN_NAME)
-        const iHooks = getHooks(compilation)
-        logger.group(PLUGIN_NAME)
+    const { options } = compiler
+    const jsPath = path.resolve(__dirname, './client/client.js')
 
-        if (!env.enable) {
-          logger.info(LANG.DISABLE)
-        } else {
-          const entrys = []
-          compilation.chunks.forEach((chunk) => {
-            chunk.files.forEach((fName) => {
-              console.log(fName)
-              if (
-                chunk.name &&
-                path.extname(fName) === '.js'
-              ) {
-                console.log(chunk.name)
-                entrys.push(fName)
-              }
-            })
-          })
-          entrys.forEach((assetName) => {
-            const rCnt = this.appendScript(compilation.assets[assetName].source())
-            logger.info(`${LANG.APPEND_SCRIPT}: ${chalk.cyan(assetName)}`)
-            compilation.assets[assetName] = {
-              source() {
-                return rCnt
-              },
-              size() {
-                return rCnt.length
-              }
-            }
-            compilation.hooks.moduleAsset.call({
-              userRequest: assetName
-            }, assetName)
-          })
-        }
-
-        iHooks.emit.promise()
-        logger.groupEnd()
+    if (type(options.entry) === 'array') {
+      if (options.entry.indexOf(jsPath) === -1) {
+        options.entry.push(jsPath)
       }
-    )
+    } else if (type(options.entry) === 'string') {
+      options.entry = [options.entry, jsPath]
+    } else if (type(options.entry) === 'object') {
+      Object.keys(options.entry).forEach((key) => {
+        if (type(options.entry[key]) === 'array') {
+          if (options.entry[key].indexOf(jsPath) === -1) {
+            options.entry[key].push(jsPath)
+          }
+        } else if (type(options.entry[key]) === 'string') {
+          options.entry[key] = [options.entry[key], jsPath]
+        }
+      })
+    }
+    options.plugins.push(new webpack.DefinePlugin({
+      'process.env.__YYL_ENV_POP__': (() => {
+        const r = {}
+        Object.keys(env).forEach((key) => {
+          r[key] = type(env[key]) === 'string' ? `'${env[key]}'` : env[key]
+        })
+        return r
+      })()
+    }))
   }
 }
 

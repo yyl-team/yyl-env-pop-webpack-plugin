@@ -1,6 +1,6 @@
-try {
-  (function(env) {
-    env = env || {}
+(function() {
+  try {
+    var env = process.env.__YYL_ENV_POP__
     var tipsId = '__YYL_ENV_POP'
     var tipsEl = document.getElementById(tipsId)
     if (!tipsEl) {
@@ -28,5 +28,5 @@ try {
         tipsEl.style.display = 'none'
       }, env.duration)
     }
-  })(window.__YYL_ENV_POP_OPTION)
-} catch (er) {}
+  } catch (er) {}
+})()
