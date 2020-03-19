@@ -18,6 +18,10 @@ class YylEnvPopWebpackPlugin {
     const { options } = compiler
     const jsPath = path.resolve(__dirname, './client/client.js')
 
+    if (!env.enable) {
+      return
+    }
+
     if (type(options.entry) === 'array') {
       if (options.entry.indexOf(jsPath) === -1) {
         options.entry.push(jsPath)
