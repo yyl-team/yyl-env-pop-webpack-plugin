@@ -32,7 +32,7 @@ class YylEnvPopWebpackPlugin {
       Object.keys(options.entry).forEach((key) => {
         if (type(options.entry[key]) === 'array') {
           if (options.entry[key].indexOf(jsPath) === -1) {
-            options.entry[key].push(jsPath)
+            options.entry[key].unshift(jsPath)
           }
         } else if (type(options.entry[key]) === 'string') {
           options.entry[key] = [options.entry[key], jsPath]
