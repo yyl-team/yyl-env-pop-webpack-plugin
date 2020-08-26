@@ -21,28 +21,46 @@ class YylEnvPopWebpackPlugin {
     if (!env.enable) {
       return
     }
-
-    if (type(options.entry) === 'array') {
-      if (options.entry.indexOf(jsPath) === -1) {
-        options.entry.push(jsPath)
-      }
-    } else if (type(options.entry) === 'string') {
-      options.entry = [options.entry, jsPath]
-    } else if (type(options.entry) === 'object') {
-      Object.keys(options.entry).forEach((key) => {
-        if (type(options.entry[key]) === 'array') {
-          if (options.entry[key].indexOf(jsPath) === -1) {
-            options.entry[key].unshift(jsPath)
-          }
-        } else if (type(options.entry[key]) === 'string') {
-          options.entry[key] = [options.entry[key], jsPath]
+    function initEntry (entry) {
+      if (type(entry) === 'array') {
+        if (entry.indexOf(jsPath) === -1) {
+          entry.push(jsPath)
         }
-      })
+      } else if (type(entry) === 'string') {
+        entry = [entry, jsPath]
+      } else if (type(entry) === 'object') {
+        Object.keys(entry).forEach((key) => {
+          if (env.filter && !env.filter(key)) {
+            return;
+          }
+          if (type(entry[key]) === 'array') {
+            if (entry[key].indexOf(jsPath) === -1) {
+              entry[key].unshift(jsPath)
+            }
+          } else if (type(entry[key]) === 'string') {
+            entry[key] = [entry[key], jsPath]
+          }
+        })
+      }
+      return entry
     }
+
+    if (type(options.entry) === 'asyncfunction') {
+      const asyncFn = options.entry
+      options.entry = async function () {
+        return initEntry(await asyncFn())
+      }
+    } else {
+      options.entry = initEntry(options.entry)
+    }
+
     options.plugins.push(new webpack.DefinePlugin({
       'process.env.__YYL_ENV_POP__': (() => {
         const r = {}
         Object.keys(env).forEach((key) => {
+          if (type(env[key]) === 'function') {
+            return
+          }
           r[key] = type(env[key]) === 'string' ? `'${env[key]}'` : env[key]
         })
         return r
