@@ -1,4 +1,8 @@
 # 历史版本
+## 0.2.0 (2020-08-26)
+* feat: 新增 `options.filter` 参数
+* fix: 兼容 `options.entry` 为 `asyncfunction` 的情况
+
 ## 0.1.5 (2020-03-25)
 * feat: 兼容同时出现多个情况
 
