@@ -1,4 +1,7 @@
 # 历史版本
+
+## 0.3.0 (2021-01-25)
+* feat: 兼容 webpack5
 ## 0.2.0 (2020-08-26)
 * feat: 新增 `options.filter` 参数
 * fix: 兼容 `options.entry` 为 `asyncfunction` 的情况
