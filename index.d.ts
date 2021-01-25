@@ -1,5 +1,7 @@
+import { Compiler } from 'webpack'
 declare class YylEnvPopWebpackPlugin {
   constructor(op: YylEnvPopWebpackPluginOptions)
+  apply(compiler: Compiler): void
 }
 interface YylEnvPopWebpackPluginOptions {
   /** 是否启用 */
