@@ -31,7 +31,7 @@ class YylEnvPopWebpackPlugin {
       } else if (type(entry) === 'object') {
         Object.keys(entry).forEach((key) => {
           if (env.filter && !env.filter(key)) {
-            return;
+            return
           }
           if (type(entry[key]) === 'array') {
             if (entry[key].indexOf(jsPath) === -1) {
@@ -39,6 +39,10 @@ class YylEnvPopWebpackPlugin {
             }
           } else if (type(entry[key]) === 'string') {
             entry[key] = [entry[key], jsPath]
+          } else if (type(entry[key]) === 'object') {
+            if (entry[key].import) {
+              entry[key].import.unshift(jsPath)
+            }
           }
         })
       }
