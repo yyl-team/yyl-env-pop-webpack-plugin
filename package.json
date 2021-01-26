@@ -33,17 +33,17 @@
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.js",
     "w": "rollup --watch --config ./rollup.config.js",
     "release": "yyr",
-    "prepublishOnly": "npm run prettier & npm run build",
+    "prepublishOnly": "npm run prettier & npm run build & npm test",
     "test": "jest ./test/jest/"
   },
   "peerDependencies": {
-    "webpack": ">=4.0.0 || >=5.0.0"
+    "webpack": ">=5.0.0"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
     "eslint": "^6.8.0",
     "eslint-config-yyl-react": "^0.1.9",
-    "jest": "26.4.2",
+    "jest": "26.6.3",
     "prettier": "^2.0.4",
     "rollup": "^1.9.0",
     "rollup-plugin-commonjs": "^9.3.4",
@@ -53,6 +53,7 @@
     "rollup-plugin-typescript2": "^0.20.1",
     "typescript": "^3.8.3",
     "webpack": "^5.17.0",
+    "yyl-fs": "^0.3.3",
     "yyl-release": "0.1.0"
   },
   "name": "yyl-env-pop-webpack-plugin",

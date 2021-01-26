@@ -16,7 +16,7 @@ test('case base test', async () => {
   await extFs.mkdirSync(distPath)
 
   if (!fs.existsSync(path.join(targetPath, 'node_modules'))) {
-    await extOs.runSpawn('npm i', targetPath)
+    await extOs.runSpawn('yarn install', targetPath)
   }
 
   process.chdir(targetPath)
