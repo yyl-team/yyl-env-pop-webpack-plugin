@@ -16,26 +16,33 @@ const iPluginOption = {
 const wConfig = {
   mode: 'development',
   context: __dirname,
-  entry: './src/entry/index/index.js',
+  entry: {
+    main: ['./src/entry/index/index.js']
+  },
   output: {
     path: path.join(__dirname, './dist/js'),
     filename: '[name]-[hash:8].js',
     chunkFilename: 'async_component/[name]-[chunkhash:8].js'
   },
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader'
-    }, {
-      test: /\.html$/,
-      loader: 'html-loader'
-    }, {
-      test: /\.(png|jpg|gif)$/,
-      loader: 'url-loader'
-    }, {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader']
-    }]
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'url-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
   },
   resolve: {
     alias: {}

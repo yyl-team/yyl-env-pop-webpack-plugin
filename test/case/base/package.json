@@ -23,7 +23,7 @@
     "pug-plain-loader": "^1.1.0",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.14.0",
+    "webpack": "5",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2",
     "yyl-fs": "^0.3.3",

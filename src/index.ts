@@ -156,7 +156,7 @@ module.exports = class YylEnvPopWebpackPlugin {
 
       options.plugins.push(
         new DefinePlugin({
-          'process.env.__YYL_ENV_POP': (() => {
+          'process.env.__YYL_ENV_POP__': (() => {
             const r: DefinePluginOption = {}
             Object.keys(env).forEach((key) => {
               const iEnv = toCtx<any>(env[key as keyof PluginEnv])

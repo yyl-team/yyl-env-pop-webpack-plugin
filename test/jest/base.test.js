@@ -8,7 +8,7 @@ const extFs = require('yyl-fs')
 
 jest.setTimeout(30000)
 
-test('case base test', async() => {
+test('case base test', async () => {
   const targetPath = path.join(__dirname, '../case/base')
   const distPath = path.join(targetPath, 'dist')
 

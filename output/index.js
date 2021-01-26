@@ -170,7 +170,7 @@ module.exports = class YylEnvPopWebpackPlugin {
                 });
             }
             options.plugins.push(new webpack.DefinePlugin({
-                'process.env.__YYL_ENV_POP': (() => {
+                'process.env.__YYL_ENV_POP__': (() => {
                     const r = {};
                     Object.keys(env).forEach((key) => {
                         const iEnv = toCtx(env[key]);
