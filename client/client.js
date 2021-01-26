@@ -1,4 +1,4 @@
-(function() {
+;(function () {
   try {
     var env = process.env.__YYL_ENV_POP__
     var tipsId = '__YYL_ENV_POP'
@@ -38,7 +38,7 @@
       setTimeout(function () {
         tipsEl.style.transform = 'translate(-50%, -110%)'
         tipsEl.style.visibility = 'hidden'
-        setTimeout(function() {
+        setTimeout(function () {
           document.body.removeChild(tipsEl)
         }, 1000)
       }, env.duration)
