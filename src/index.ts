@@ -92,8 +92,7 @@ function injectEntry(op: InjectEntryOption) {
     return toCtx<EntryNormalized>(iEntry)
   }
 }
-
-module.exports = class YylEnvPopWebpackPlugin {
+export default class YylEnvPopWebpackPlugin {
   /** 默认配置 */
   env: PluginEnv = DEFAULT_ENV
   filter: YylEnvPopWebpackPluginOption['filter']
@@ -171,3 +170,5 @@ module.exports = class YylEnvPopWebpackPlugin {
     logger.groupEnd()
   }
 }
+
+module.exports = YylEnvPopWebpackPlugin

@@ -1,9 +1,11 @@
 /*!
- * yyl-env-pop-webpack-plugin cjs 1.0.0
+ * yyl-env-pop-webpack-plugin cjs 1.0.1
  * (c) 2020 - 2021 jackness
  * Released under the MIT License.
  */
 'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
@@ -114,7 +116,7 @@ function injectEntry(op) {
         return toCtx(iEntry);
     }
 }
-module.exports = class YylEnvPopWebpackPlugin {
+class YylEnvPopWebpackPlugin {
     constructor(op) {
         /** 默认配置 */
         this.env = DEFAULT_ENV;
@@ -183,4 +185,7 @@ module.exports = class YylEnvPopWebpackPlugin {
         }
         logger.groupEnd();
     }
-};
+}
+module.exports = YylEnvPopWebpackPlugin;
+
+exports.default = YylEnvPopWebpackPlugin;
