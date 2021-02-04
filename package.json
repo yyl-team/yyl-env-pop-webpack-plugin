@@ -32,7 +32,7 @@
     "d": "rollup --config ./rollup.config.js",
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.js",
     "w": "rollup --watch --config ./rollup.config.js",
-    "prepublishOnly": "npm run prettier & npm test npm run doc",
+    "prepublishOnly": "npm run prettier & npm test & npm run doc",
     "doc": "typedoc src/index.ts --plugin typedoc-plugin-markdown",
     "test": "npm run build & jest ./test/jest/"
   },
@@ -51,6 +51,8 @@
     "rollup-plugin-node-resolve": "^4.2.1",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript2": "^0.20.1",
+    "typedoc": "^0.20.20",
+    "typedoc-plugin-markdown": "^3.4.5",
     "typescript": "^3.8.3",
     "webpack": "^5.17.0",
     "yyl-fs": "^0.3.3"
