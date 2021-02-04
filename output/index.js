@@ -1,5 +1,5 @@
 /*!
- * yyl-env-pop-webpack-plugin cjs 1.0.1
+ * yyl-env-pop-webpack-plugin cjs 1.0.2
  * (c) 2020 - 2021 jackness
  * Released under the MIT License.
  */
@@ -141,10 +141,9 @@ class YylEnvPopWebpackPlugin {
     }
     apply(compiler) {
         const { env, filter } = this;
-        const logger = compiler.getInfrastructureLogger(PLUGIN_NAME);
-        logger.group(PLUGIN_NAME);
+        const logs = [];
         if (!this.env.enable) {
-            logger.info('disabled');
+            logs.push(['disabled']);
         }
         else {
             const { options } = compiler;
@@ -156,7 +155,7 @@ class YylEnvPopWebpackPlugin {
                             entry: yield asyncFn(),
                             filter,
                             logger(...args) {
-                                logger.info(...args);
+                                logs.push(args);
                             }
                         });
                     });
@@ -167,7 +166,7 @@ class YylEnvPopWebpackPlugin {
                     entry: options.entry,
                     filter,
                     logger(...args) {
-                        logger.info(...args);
+                        logs.push(args);
                     }
                 });
             }
@@ -181,9 +180,16 @@ class YylEnvPopWebpackPlugin {
                     return r;
                 })()
             }));
-            logger.info(`inited. text: ${env.text}, duration: ${env.duration}`);
+            logs.push([`inited. text: ${env.text}, duration: ${env.duration}`]);
         }
-        logger.groupEnd();
+        compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
+            const logger = compilation.getLogger(PLUGIN_NAME);
+            logger.group(PLUGIN_NAME);
+            logs.forEach((arr) => {
+                logger.info(...arr);
+            });
+            logger.groupEnd();
+        });
     }
 }
 module.exports = YylEnvPopWebpackPlugin;

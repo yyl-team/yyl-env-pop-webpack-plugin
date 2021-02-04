@@ -125,11 +125,10 @@ export default class YylEnvPopWebpackPlugin {
 
   apply(compiler: Compiler) {
     const { env, filter } = this
+    const logs: string[][] = []
 
-    const logger = compiler.getInfrastructureLogger(PLUGIN_NAME)
-    logger.group(PLUGIN_NAME)
     if (!this.env.enable) {
-      logger.info('disabled')
+      logs.push(['disabled'])
     } else {
       const { options } = compiler
       if (type(options.entry) === 'asyncfunction') {
@@ -139,7 +138,7 @@ export default class YylEnvPopWebpackPlugin {
             entry: await asyncFn(),
             filter,
             logger(...args: string[]) {
-              logger.info(...args)
+              logs.push(args)
             }
           })
         } as EntryNormalized
@@ -148,7 +147,7 @@ export default class YylEnvPopWebpackPlugin {
           entry: options.entry,
           filter,
           logger(...args: string[]) {
-            logger.info(...args)
+            logs.push(args)
           }
         })
       }
@@ -165,9 +164,16 @@ export default class YylEnvPopWebpackPlugin {
           })()
         })
       )
-      logger.info(`inited. text: ${env.text}, duration: ${env.duration}`)
+      logs.push([`inited. text: ${env.text}, duration: ${env.duration}`])
     }
-    logger.groupEnd()
+    compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
+      const logger = compilation.getLogger(PLUGIN_NAME)
+      logger.group(PLUGIN_NAME)
+      logs.forEach((arr) => {
+        logger.info(...arr)
+      })
+      logger.groupEnd()
+    })
   }
 }
 
