@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "output/index.js",
   "module": "output/index.esm.js",
   "types": "output/index.d.ts",
@@ -32,9 +32,9 @@
     "d": "rollup --config ./rollup.config.js",
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.js",
     "w": "rollup --watch --config ./rollup.config.js",
-    "release": "yyr",
-    "prepublishOnly": "npm run prettier & npm run build & npm test",
-    "test": "jest ./test/jest/"
+    "prepublishOnly": "npm run prettier & npm test npm run doc",
+    "doc": "typedoc src/index.ts --plugin typedoc-plugin-markdown",
+    "test": "npm run build & jest ./test/jest/"
   },
   "peerDependencies": {
     "webpack": ">=5.0.0"
@@ -53,8 +53,7 @@
     "rollup-plugin-typescript2": "^0.20.1",
     "typescript": "^3.8.3",
     "webpack": "^5.17.0",
-    "yyl-fs": "^0.3.3",
-    "yyl-release": "0.1.0"
+    "yyl-fs": "^0.3.3"
   },
   "name": "yyl-env-pop-webpack-plugin",
   "repository": "https://github.com/jackness1208/yyl-env-pop-webpack-plugin.git",

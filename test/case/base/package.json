@@ -29,5 +29,9 @@
     "yyl-fs": "^0.3.3",
     "yyl-os": "^0.10.2",
     "yyl-util": "^2.3.7"
+  },
+  "devDependencies": {
+    "typedoc": "^0.20.20",
+    "typedoc-plugin-markdown": "^3.4.5"
   }
 }
