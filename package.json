@@ -59,7 +59,7 @@
   },
   "name": "yyl-env-pop-webpack-plugin",
   "repository": "https://github.com/jackness1208/yyl-env-pop-webpack-plugin.git",
-  "author": "liudaojie <liudaojie@yy.com>",
+  "author": "jackness1208",
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.0",
